@@ -1,0 +1,26 @@
+version: "3"
+services:
+  app:
+    image: spring-boot-app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysqldb
+    networks:
+      - job-portal
+    volumes:
+      - /data/spring-boot
+  mysqldb:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: job_portal
+    networks:
+      - job-portal
+    volumes:
+      - /data/mysql
+networks:
+  job-portal:
+    driver: bridge
